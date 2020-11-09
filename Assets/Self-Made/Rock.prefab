@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 964616955492565295}
   - component: {fileID: 2111724420689641683}
   - component: {fileID: -58044335552421037}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Rock
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,8 +112,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strengthMult: 1
-  minStrength: 1
-  maxStrength: 1000
+  minColMag: 1
+  maxColMag: 1000
+  owner: {fileID: 0}
 --- !u!54 &-58044335552421037
 Rigidbody:
   m_ObjectHideFlags: 0

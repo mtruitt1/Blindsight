@@ -11,7 +11,7 @@ public class Clicker : MonoBehaviour {
         timer -= Time.deltaTime;
         if (Input.GetMouseButtonDown(0) && timer <= 0f) {
             timer = coolDown;
-            GameManager.SpawnSound(strength, transform.position, false);
+            GameManager.SpawnSound(strength, transform.position, false, false, null);
         }
     }
 }

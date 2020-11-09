@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BipedWalker : MonoBehaviour {
-    private Animator model;
-    public SphereCollider moveBall;
-    private Rigidbody rb;
+    protected Animator model;
+    public MoveBall moveBall;
+    public Rigidbody rb { get; protected set; }
+    public CapsuleCollider bodyCollider { get; protected set; }
+    public Transform root;
     public Foot left;
     public Foot right;
     public float changeSpeed = 5f;
@@ -15,19 +17,21 @@ public class BipedWalker : MonoBehaviour {
     public float stepStrength = 1f;
     public float minColMag = 1f;
     public float maxColMag = 1000f;
-    public float forwardCurrent { get; private set; } = 0f;
-    public float rightCurrent { get; private set; } = 0f;
-    public float turnCurrent { get; private set; } = 0f;
-    public bool grounded { get; private set; } = true;
-    public float realStrength { get; private set; } = 1f;
+    public float forwardCurrent { get; protected set; } = 0f;
+    public float rightCurrent { get; protected set; } = 0f;
+    public float turnCurrent { get; protected set; } = 0f;
+    public bool grounded { get; protected set; } = true;
+    public float realStrength { get; protected set; } = 1f;
     public bool jump = false;
     public bool crouch = false;
     public bool sprint = false;
-    private List<StrikingObject> strikers = new List<StrikingObject>();
+    protected List<StrikingObject> strikers = new List<StrikingObject>();
 
-    private void Start() {
+    protected virtual void Start() {
         model = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        bodyCollider = GetComponent<CapsuleCollider>();
+        Physics.IgnoreCollision(bodyCollider, moveBall.GetComponent<Collider>());
         List<Foot> feet = new List<Foot>() {
             left,
             right
@@ -45,10 +49,12 @@ public class BipedWalker : MonoBehaviour {
             FixedJoint joint = step.gameObject.AddComponent<FixedJoint>();
             joint.connectedBody = f.footRB;
             strikers.Add(step);
+            Physics.IgnoreCollision(bodyCollider, step.GetComponent<Collider>());
+            Physics.IgnoreCollision(moveBall.GetComponent<Collider>(), step.GetComponent<Collider>());
         }
     }
 
-    private void Update() {
+    protected virtual void Update() {
         if (crouch || turnCurrent != 0f) {
             realStrength = stepStrength * 0.5f;
         } else if (sprint) {
@@ -61,6 +67,7 @@ public class BipedWalker : MonoBehaviour {
             step.minColMag = minColMag;
             step.maxColMag = maxColMag;
         }
+        grounded = moveBall.grounded;
         forwardCurrent = Mathf.MoveTowards(forwardCurrent, forwardGoal, Time.deltaTime * changeSpeed);
         rightCurrent = Mathf.MoveTowards(rightCurrent, rightGoal, Time.deltaTime * changeSpeed);
         turnCurrent = Mathf.MoveTowards(turnCurrent, turnGoal, Time.deltaTime * changeSpeed);
@@ -72,6 +79,12 @@ public class BipedWalker : MonoBehaviour {
         model.SetBool("Crouch", crouch);
         model.SetBool("Sprint", sprint);
         jump = false;
+    }
+
+    private void LateUpdate() {
+        if (!grounded) {
+            rb.velocity = new Vector3(moveBall.airSpeed.x, rb.velocity.y, moveBall.airSpeed.z);
+        }
     }
 
     [System.Serializable]

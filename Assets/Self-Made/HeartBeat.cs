@@ -10,7 +10,7 @@ public class HeartBeat : MonoBehaviour {
     private void Update() {
         bps -= Time.deltaTime;
         if (bps <= 0f) {
-            GameManager.SpawnSound(strength, transform.position, false);
+            GameManager.SpawnSound(strength, transform.position, false, true, null);
             bps = 1 / (heartRate / 60);
         }
     }
