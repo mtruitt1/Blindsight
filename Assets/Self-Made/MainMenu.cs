@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour {
     public Transform heartBeatSpawn;
 
     private void Start() {
+        Cursor.lockState = CursorLockMode.None;
         if (PlayerPrefs.HasKey("HighestLevel")) {
             if (PlayerPrefs.GetInt("HighestLevel") > 0) {
                 playButton.buttonText = "CONTINUE";

@@ -5,8 +5,10 @@ using UnityEngine;
 public class ExitDoor : MonoBehaviour {
     public int levelNum = -2;
     public float doorSpeed = 5f;
-    public List<Door> doors;
+    public Transform posDoor;
+    public Transform negDoor;
     private bool open = false;
+    public Vector3 endEulersPos;
 
     private void OnTriggerEnter(Collider other) {
         open = true;
@@ -24,28 +26,19 @@ public class ExitDoor : MonoBehaviour {
             return;
         }
         if (open) {
-            foreach (Door door in doors) {
-                if (door.transform.localEulerAngles != door.endEulers) {
-                    door.transform.localEulerAngles = Vector3.MoveTowards(door.transform.localEulerAngles, door.endEulers, Time.deltaTime * doorSpeed);
-                }
-                if (door.transform.localEulerAngles == door.endEulers) {
-                    try {
-                        if (levelNum == PlayerPrefs.GetInt("HighestLevel")) {
-                            GameManager.local.LoadScene(levelNum + 1);
-                        } else {
-                            GameManager.local.LoadMenu();
-                        }
-                    } catch {
-                        Debug.LogWarning("Levels not implemented past " + levelNum);
+            if (posDoor.localEulerAngles != endEulersPos) {
+                posDoor.localEulerAngles = Vector3.MoveTowards(posDoor.localEulerAngles, endEulersPos, Time.deltaTime * doorSpeed);
+                negDoor.localEulerAngles = posDoor.localEulerAngles * -1f;
+            }
+            if (posDoor.localEulerAngles == endEulersPos) {
+                if (levelNum == PlayerPrefs.GetInt("HighestLevel")) {
+                    if (!GameManager.local.LoadScene(levelNum + 1)) {
+                        GameManager.local.LoadMenu();
                     }
+                } else {
+                    GameManager.local.LoadMenu();
                 }
             }
         }
-    }
-
-    [System.Serializable]
-    public class Door {
-        public Transform transform;
-        public Vector3 endEulers;
     }
 }

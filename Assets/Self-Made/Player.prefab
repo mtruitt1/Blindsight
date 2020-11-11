@@ -1500,7 +1500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab96caf0bcba79043a7f85c89f14ed65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 0.5
+  strength: 0.25
   heartRate: 70
 --- !u!1 &4219585758667097152
 GameObject:

@@ -569,7 +569,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 1208131415}
-  camera: {fileID: 1144032049}
   heartBeatSpawn: {fileID: 950983054}
 --- !u!1 &765538152
 GameObject:
@@ -1025,7 +1024,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab96caf0bcba79043a7f85c89f14ed65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 4
+  strength: 2
   heartRate: 60
 --- !u!4 &950983054
 Transform:
