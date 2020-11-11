@@ -6,7 +6,7 @@ public class StrikingObject : MonoBehaviour {
     public float strengthMult = 1f;
     public float minColMag = 1f;
     public float maxColMag = 1000f;
-    public SoundListener owner = null;
+    public SoundReceiver owner = null;
 
     private void OnCollisionEnter(Collision collision) {
         float strength = Mathf.Clamp(collision.relativeVelocity.magnitude, minColMag, maxColMag) * strengthMult;

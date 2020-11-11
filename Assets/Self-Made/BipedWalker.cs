@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BipedWalker : MonoBehaviour {
+public class BipedWalker : SoundReceiver {
     protected Animator model;
     public MoveBall moveBall;
     public Rigidbody rb { get; protected set; }
@@ -55,6 +55,9 @@ public class BipedWalker : MonoBehaviour {
     }
 
     protected virtual void Update() {
+        if (GameManager.local.state == GameManager.GameState.Paused) {
+            return;
+        }
         if (crouch || turnCurrent != 0f) {
             realStrength = stepStrength * 0.5f;
         } else if (sprint) {

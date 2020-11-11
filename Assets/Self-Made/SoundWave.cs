@@ -8,18 +8,22 @@ public class SoundWave : MonoBehaviour {
     public bool regularSound { get; private set; } = false;
     public float strength { get; private set; }
     public float maxStrength { get; private set; }
-    public SoundListener origin { get; private set; }
+    public SoundReceiver origin { get; private set; }
     private Material mat;
 
-    public void Emit(float str, bool reg, SoundListener maker) {
+    public SoundWave Emit(float str, bool reg, SoundReceiver maker) {
         maxStrength = str;
         strength = str;
         regularSound = reg;
         origin = maker;
         mat = GetComponent<Renderer>().material;
+        return this;
     }
 
     private void Update() {
+        if (GameManager.local.state == GameManager.GameState.Paused) {
+            return;
+        }
         strength -= Time.deltaTime;
         if (strength <= 0f) {
             Destroy(gameObject);
@@ -31,7 +35,7 @@ public class SoundWave : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.TryGetComponent(out SoundListener listener)) {
+        if (other.TryGetComponent(out SoundReceiver listener)) {
             listener.SoundTouched(this);
         }
     }

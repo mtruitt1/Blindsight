@@ -9,6 +9,8 @@ TagManager:
   - EnemyBoundingWall
   - Ground
   - Wall
+  - SoundWave
+  - Object
   layers:
   - Default
   - TransparentFX
@@ -24,9 +26,9 @@ TagManager:
   - Player
   - Enemy
   - EnemyBoundingWall
-  - 
-  - 
-  - 
+  - SoundWave
+  - Object
+  - PlayerTriggerZone
   - 
   - 
   - 

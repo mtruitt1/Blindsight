@@ -4,6 +4,7 @@ using UnityEngine;
 
 [AddComponentMenu("Camera-Control/Mouse Orbit with zoom")]
 public class PivotCamera : MonoBehaviour {
+    public Camera camera;
 
     public Transform target;
     public float distance = 5.0f;
@@ -19,11 +20,13 @@ public class PivotCamera : MonoBehaviour {
     float x = 45f;
     float y = 45f;
 
+    private void Start() {
+        camera = GetComponent<Camera>();
+    }
+
     void LateUpdate() {
-        if (Input.GetKey(KeyCode.Escape)) {
-            Cursor.lockState = CursorLockMode.None;
-        } else {
-            Cursor.lockState = CursorLockMode.Locked;
+        if (GameManager.local.state == GameManager.GameState.Paused) {
+            return;
         }
         if (target) {
             float mouseX = 0f;

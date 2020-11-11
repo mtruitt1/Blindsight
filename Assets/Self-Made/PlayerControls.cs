@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControls : MonoBehaviour {
     public BipedWalker walker;
     public PivotCamera pivot;
+    public Transform cameraPoint;
     public float angleTolerance = 1f;
     public float turnSpeed = 5f;
     public float jumpPower = 10f;
@@ -13,7 +14,19 @@ public class PlayerControls : MonoBehaviour {
     public float rockSpeed = 10f;
     private float timer;
 
+    private void Start() {
+        pivot.target = cameraPoint;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     private void Update() {
+        if (GameManager.local.state == GameManager.GameState.Paused) {
+            return;
+        }
+        int layerMask = ~((1 << 11) | (1 << 12) | (1 << 13) | (1 << 14) | (1 << 16)); //all layers except player, enemies, enemy bounding walls, sound waves, and player trigger zones
+        if (Physics.Linecast(cameraPoint.position, pivot.transform.position, out RaycastHit hitInfo, layerMask)) {
+            pivot.camera.nearClipPlane = Vector3.Distance(pivot.transform.position, hitInfo.point) + 0.5f;
+        }
         walker.forwardGoal = Input.GetAxis("Vertical");
         walker.rightGoal = Input.GetAxis("Horizontal");
         if (walker.grounded) {

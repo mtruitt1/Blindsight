@@ -8,6 +8,9 @@ public class Clicker : MonoBehaviour {
     private float timer = 0f;
 
     private void Update() {
+        if (GameManager.local.state == GameManager.GameState.Paused) {
+            return;
+        }
         timer -= Time.deltaTime;
         if (Input.GetMouseButtonDown(0) && timer <= 0f) {
             timer = coolDown;

@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 5748877889350709652}
   - component: {fileID: 5748877889350709611}
   - component: {fileID: 5748877889350709655}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: SoundSphere
-  m_TagString: Untagged
+  m_TagString: SoundWave
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
