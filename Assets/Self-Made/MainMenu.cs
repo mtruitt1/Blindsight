@@ -44,4 +44,12 @@ public class MainMenu : MonoBehaviour {
     public void Quit() {
         Application.Quit();
     }
+
+    public void PlayHover() {
+        AudioSource.PlayClipAtPoint(GameManager.local.buttonHover, Camera.main.transform.position, GameManager.local.UIVolume);
+    }
+
+    public void PlayClick() {
+        AudioSource.PlayClipAtPoint(GameManager.local.buttonClick, Camera.main.transform.position, GameManager.local.UIVolume);
+    }
 }

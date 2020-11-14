@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Clicker : MonoBehaviour {
+public class Clicker : SoundObject {
     public float strength = 10f;
     public float coolDown = 0.25f;
     private float timer = 0f;
@@ -14,7 +14,7 @@ public class Clicker : MonoBehaviour {
         timer -= Time.deltaTime;
         if (Input.GetMouseButtonDown(0) && timer <= 0f) {
             timer = coolDown;
-            GameManager.SpawnSound(strength, transform.position, false, false, null);
+            PlayRandSound(strength, false, false);
         }
     }
 }

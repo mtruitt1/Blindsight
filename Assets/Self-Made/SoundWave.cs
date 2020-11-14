@@ -8,10 +8,10 @@ public class SoundWave : MonoBehaviour {
     public bool regularSound { get; private set; } = false;
     public float strength { get; private set; }
     public float maxStrength { get; private set; }
-    public SoundReceiver origin { get; private set; }
+    public SoundObject origin { get; private set; }
     private Material mat;
 
-    public SoundWave Emit(float str, bool reg, SoundReceiver maker) {
+    public SoundWave Emit(float str, bool reg, SoundObject maker) {
         maxStrength = str;
         strength = str;
         regularSound = reg;

@@ -332,6 +332,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cfc731b48ef8f4478c764e6f9bafa83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volMult: 1
+  sounds:
+  - {fileID: 8300000, guid: 36def47e4ff62cc4d9780da6f66eb1c4, type: 3}
+  owner: {fileID: 4219585758667180989}
   strength: 10
   coolDown: 0.25
 --- !u!1 &4219585758667020238
@@ -698,6 +702,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd80111d8799e204eaa44af3b8b03545, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volMult: 1
+  sounds:
+  - {fileID: 8300000, guid: a747d6c17b17d6e419d3e053c5c89f09, type: 3}
+  - {fileID: 8300000, guid: 8d84b5d34895b724c8d637452cc850f1, type: 3}
+  - {fileID: 8300000, guid: 05743d72d1a7e554abe2a1c6590c3b57, type: 3}
+  - {fileID: 8300000, guid: fc27f4b361fc0834cbc4e6b2c9def9c5, type: 3}
+  - {fileID: 8300000, guid: 459a5d85137dbb343ac8539c3e30a82f, type: 3}
+  - {fileID: 8300000, guid: dfcfad9bec6731a40a1574178b831fd7, type: 3}
+  owner: {fileID: 0}
   ignoreReg: 1
   strengthMinRaw: 0
   strengthMinPercent: 0
@@ -717,12 +730,14 @@ MonoBehaviour:
   forwardGoal: 0
   rightGoal: 0
   turnGoal: 0
-  stepStrength: 2
+  stepStrength: 1
   minColMag: 1
   maxColMag: 1000
   jump: 0
   crouch: 0
   sprint: 0
+  footstepSounds: []
+  footStepvolMult: 1
 --- !u!114 &4219585758667180988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,6 +1515,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab96caf0bcba79043a7f85c89f14ed65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volMult: 4
+  sounds:
+  - {fileID: 8300000, guid: edd19e1d6f8a9424d8312010487c5b8b, type: 3}
+  owner: {fileID: 4219585758667180989}
   strength: 0.25
   heartRate: 70
 --- !u!1 &4219585758667097152
@@ -2206,7 +2225,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c07ce8174ad8241b2d7dc63dc92083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volMult: 2
+  sounds:
+  - {fileID: 8300000, guid: fff1709ab8342e647a72d8fd879c6df4, type: 3}
+  owner: {fileID: 4219585758667180989}
   strengthMult: 1
   minColMag: 1
   maxColMag: 1000
-  owner: {fileID: 0}

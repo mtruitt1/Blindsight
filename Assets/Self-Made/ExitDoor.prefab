@@ -47,11 +47,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b879c2c99b26d64e876cb916b630b06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volMult: 1
+  sounds: []
+  owner: {fileID: 0}
   levelNum: 0
   doorSpeed: 50
   posDoor: {fileID: 9220639264272241729}
   negDoor: {fileID: 9220639263951636036}
-  endEulersPos: {x: 0, y: 70, z: 0}
+  endEulers: {x: 0, y: 70, z: 0}
 --- !u!65 &9220639264520458788
 BoxCollider:
   m_ObjectHideFlags: 0

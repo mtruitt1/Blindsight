@@ -25,6 +25,8 @@ public class BipedWalker : SoundReceiver {
     public bool jump = false;
     public bool crouch = false;
     public bool sprint = false;
+    public List<AudioClip> footstepSounds = new List<AudioClip>();
+    public float footStepvolMult = 1f;
     protected List<StrikingObject> strikers = new List<StrikingObject>();
 
     protected virtual void Start() {
@@ -39,6 +41,7 @@ public class BipedWalker : SoundReceiver {
         foreach (Foot f in feet) {
             StrikingObject step = Instantiate(GameManager.local.footStep);
             step.strengthMult = stepStrength;
+            step.volMult = footStepvolMult;
             step.minColMag = minColMag;
             step.maxColMag = maxColMag;
             step.transform.parent = f.footRB.transform;
@@ -46,6 +49,7 @@ public class BipedWalker : SoundReceiver {
             step.transform.localEulerAngles = f.localEuler;
             step.transform.localScale = f.localScale;
             step.transform.parent = null;
+            step.owner = this;
             FixedJoint joint = step.gameObject.AddComponent<FixedJoint>();
             joint.connectedBody = f.footRB;
             strikers.Add(step);

@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour {
     public float moveBallFallDetect = 0.01f;
     public List<string> levels;
     public GameState state = GameState.Playing;
+    public float UIVolume = 1f;
+    public AudioClip buttonHover;
+    public AudioClip buttonClick;
 
     private void Awake() {
         local = this;
@@ -29,7 +32,7 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    public static void SpawnSound(float str, Vector3 position, bool strike, bool reg, SoundReceiver maker) {
+    public static void SpawnSound(float str, Vector3 position, bool strike, bool reg, SoundObject maker) {
         if (strike) {
             Instantiate(local.soundSphere, position, Quaternion.identity).Emit(str * local.strikeMult, reg, maker);
         } else {

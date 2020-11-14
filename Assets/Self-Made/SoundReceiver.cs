@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundReceiver : MonoBehaviour {
+public class SoundReceiver : SoundObject {
     public bool ignoreReg = true;
     public float strengthMinRaw = 0f;
     public float strengthMinPercent = 0f;

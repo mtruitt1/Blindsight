@@ -52,3 +52,6 @@ MonoBehaviour:
   moveBallFallDetect: 0.25
   levels:
   - TutorialLevel
+  state: 0
+  buttonHover: {fileID: 8300000, guid: b3c5b1aba35ea4e458d9b995bc178e34, type: 3}
+  buttonClick: {fileID: 8300000, guid: 6f3cd33ba47c7b14da9b4cf58ae6b6a5, type: 3}

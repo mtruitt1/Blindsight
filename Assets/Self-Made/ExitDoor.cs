@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExitDoor : MonoBehaviour {
+public class ExitDoor : SoundObject {
     public int levelNum = -2;
     public float doorSpeed = 5f;
     public Transform posDoor;
     public Transform negDoor;
     private bool open = false;
-    public Vector3 endEulersPos;
+    public Vector3 endEulers;
+    private float timer = 0f;
+    private Vector3 startEulers;
+    private float doorStrength = 10f;
 
     private void OnTriggerEnter(Collider other) {
         open = true;
@@ -19,6 +22,7 @@ public class ExitDoor : MonoBehaviour {
         } else {
             PlayerPrefs.SetInt("HighestLevel", -1);
         }
+        startEulers = posDoor.localEulerAngles;
     }
 
     private void Update() {
@@ -26,11 +30,14 @@ public class ExitDoor : MonoBehaviour {
             return;
         }
         if (open) {
-            if (posDoor.localEulerAngles != endEulersPos) {
-                posDoor.localEulerAngles = Vector3.MoveTowards(posDoor.localEulerAngles, endEulersPos, Time.deltaTime * doorSpeed);
+            if (posDoor.localEulerAngles == startEulers) {
+                PlayRandSound(doorStrength, false, true);
+            }
+            if (posDoor.localEulerAngles != endEulers) {
+                posDoor.localEulerAngles = Vector3.MoveTowards(posDoor.localEulerAngles, endEulers, Time.deltaTime * doorSpeed);
                 negDoor.localEulerAngles = posDoor.localEulerAngles * -1f;
             }
-            if (posDoor.localEulerAngles == endEulersPos) {
+            if (posDoor.localEulerAngles == endEulers) {
                 if (levelNum == PlayerPrefs.GetInt("HighestLevel")) {
                     if (!GameManager.local.LoadScene(levelNum + 1)) {
                         GameManager.local.LoadMenu();

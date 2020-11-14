@@ -111,10 +111,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c07ce8174ad8241b2d7dc63dc92083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volMult: 1
+  sounds:
+  - {fileID: 8300000, guid: 95aad8d4fa32a944facaea5501cfae46, type: 3}
+  owner: {fileID: 0}
   strengthMult: 1
   minColMag: 1
   maxColMag: 1000
-  owner: {fileID: 0}
 --- !u!54 &-58044335552421037
 Rigidbody:
   m_ObjectHideFlags: 0
