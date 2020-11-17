@@ -6,12 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Self-Made/Game.unity
+    path: Assets/Self-Made/Scenes/Game.unity
     guid: 98024dab2b410a04185d92f871dade39
   - enabled: 1
-    path: Assets/Self-Made/MainMenu.unity
+    path: Assets/Self-Made/Scenes/MainMenu.unity
     guid: 7db90a518b373b543914f0b857c1036a
   - enabled: 1
-    path: Assets/Self-Made/TutorialLevel.unity
+    path: Assets/Self-Made/Scenes/TutorialLevel.unity
     guid: 0df35012157155648900eaa23f757609
+  - enabled: 1
+    path: Assets/Self-Made/Scenes/LeverLevel.unity
+    guid: f1f24fb5e59ae0d4b91fae2a4e18671e
   m_configObjects: {}
