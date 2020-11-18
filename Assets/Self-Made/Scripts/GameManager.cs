@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour {
     public static GameManager local;
@@ -15,6 +16,13 @@ public class GameManager : MonoBehaviour {
     public float UIVolume = 1f;
     public AudioClip buttonHover;
     public AudioClip buttonClick;
+    public GameObject FPSOverlay;
+    public TextMeshProUGUI fpsText;
+    public float updateRateSeconds = 4.0F;
+
+    int frameCount = 0;
+    float dt = 0.0F;
+    float fps = 0.0F;
 
     private void Awake() {
         local = this;
@@ -41,11 +49,21 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Update() {
+        FPSOverlay.SetActive(SettingsMenu.local.fpsOverlay);
+        Screen.fullScreen = SettingsMenu.local.fullScreen;
         if (state == GameState.Paused) {
             Time.timeScale = 0f;
         } else {
             Time.timeScale = 1f;
         }
+        frameCount++;
+        dt += Time.unscaledDeltaTime;
+        if (dt > 1.0 / updateRateSeconds) {
+            fps = frameCount / dt;
+            frameCount = 0;
+            dt -= 1.0F / updateRateSeconds;
+        }
+        fpsText.text = System.Math.Round(fps, 1).ToString("0.0");
     }
 
     public enum GameState {
