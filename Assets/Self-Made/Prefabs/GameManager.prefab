@@ -539,6 +539,7 @@ MonoBehaviour:
   levels:
   - TutorialLevel
   - LeverLevel
+  - EnemyLevel
   state: 0
   UIVolume: 1
   buttonHover: {fileID: 8300000, guid: b3c5b1aba35ea4e458d9b995bc178e34, type: 3}
