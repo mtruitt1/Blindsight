@@ -433,8 +433,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7204013486942618905}
-  m_LocalRotation: {x: -0, y: -0.95095235, z: -0, w: -0.3093377}
-  m_LocalPosition: {x: -2.48, y: 0.5, z: 3.15}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_Children:
   - {fileID: 7201073881624936935}
@@ -442,7 +442,7 @@ Transform:
   - {fileID: 7205593981118822981}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -216.039, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7109917525055074503
 Animator:
   serializedVersion: 3
@@ -482,7 +482,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 11cf2028454b17042936599c6554bb5d, type: 3}
   - {fileID: 8300000, guid: 547a02155808f6546acc16e2319b67b9, type: 3}
   - {fileID: 8300000, guid: b3bb2b35ab7b44844af205199dea43d0, type: 3}
-  owner: {fileID: 0}
+  owner: {fileID: 7204013486942618904}
   ignoreReg: 1
   strengthMinRaw: 0
   strengthMinPercent: 0
@@ -512,9 +512,13 @@ MonoBehaviour:
   sprint: 0
   footstepSounds: []
   footStepvolMult: 1
+  castPoint: {fileID: 7200727209594220675}
   degreesTolerance: 1
   distanceTolerance: 1
   sprintDistance: 2
+  predefinedPath:
+    spotsOnPath: []
+  forgetTime: 5
 --- !u!136 &7204013486942618910
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -31,6 +31,7 @@ public class ExitDoor : SoundObject {
             return;
         }
         if (open) {
+            GameManager.local.cover = true;
             if (posDoor.localEulerAngles == startEulers && doorStrength > 0) {
                 PlayRandSound(doorStrength, false, true);
                 doorStrength = 0f;

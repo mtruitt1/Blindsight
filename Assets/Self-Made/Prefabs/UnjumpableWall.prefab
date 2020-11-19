@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 8402533929843635222}
   - component: {fileID: 8402533929842606810}
   - component: {fileID: 8391286025973112132}
-  m_Layer: 0
-  m_Name: SM_Env_Wall_01_DoubleSided (2)
+  m_Layer: 9
+  m_Name: UnjumpableWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

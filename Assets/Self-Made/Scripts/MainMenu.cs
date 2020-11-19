@@ -6,6 +6,7 @@ using Michsky.UI.ModernUIPack;
 public class MainMenu : MonoBehaviour {
     public ButtonManager playButton;
     public Transform heartBeatSpawn;
+    public GameObject credits;
 
     private void Start() {
         Cursor.lockState = CursorLockMode.None;
@@ -43,6 +44,10 @@ public class MainMenu : MonoBehaviour {
 
     public void Quit() {
         Application.Quit();
+    }
+
+    public void ToggleCredits() {
+        credits.SetActive(!credits.activeInHierarchy);
     }
 
     public void PlayHover() {

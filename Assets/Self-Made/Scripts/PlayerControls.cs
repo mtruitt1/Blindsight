@@ -15,6 +15,7 @@ public class PlayerControls : MonoBehaviour {
     private float timer;
 
     private void Start() {
+        pivot = Camera.main.GetComponent<PivotCamera>();
         pivot.target = cameraPoint;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -23,7 +24,7 @@ public class PlayerControls : MonoBehaviour {
         if (GameManager.local.state == GameManager.GameState.Paused) {
             return;
         }
-        int layerMask = ~((1 << 11) | (1 << 12) | (1 << 13) | (1 << 14) | (1 << 16)); //all layers except player, enemies, enemy bounding walls, sound waves, and player trigger zones
+        int layerMask = ~((1 << 11) | (1 << 12) | (1 << 13) | (1 << 14) | (1 << 16) | (1 << 17)); //all layers except player, enemies, enemy bounding walls, sound waves, player trigger zones, and spaces
         if (Physics.Linecast(cameraPoint.position, pivot.transform.position, out RaycastHit hitInfo, layerMask)) {
             pivot.GetComponent<Camera>().nearClipPlane = Vector3.Distance(pivot.transform.position, hitInfo.point) + 0.5f;
         }
