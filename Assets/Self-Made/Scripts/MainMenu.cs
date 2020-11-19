@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour {
     }
 
     public void Play() {
-        GameManager.local.LoadScene(PlayerPrefs.GetInt("HighestLevel") + 1);
+        GameManager.local.LoadHighestPlayable();
     }
 
     public void Tutorial() {

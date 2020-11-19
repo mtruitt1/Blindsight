@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControls : MonoBehaviour {
+    public static PlayerControls local;
     public BipedWalker walker;
     public PivotCamera pivot;
     public Transform cameraPoint;
@@ -12,16 +14,42 @@ public class PlayerControls : MonoBehaviour {
     public float coolDown = 0.5f;
     public Transform rockSpawn;
     public float rockSpeed = 10f;
+    public GameObject heartbeat;
     private float timer;
+    private AudioSource wind = null;
+    public AudioClip windClip;
+    public float windVolMult = 1f;
+    public float windVolExp = 1f;
+    public float windVolOffset = 0f;
+    public bool dead { get; private set; } = false;
 
     private void Start() {
+        local = this;
         pivot = Camera.main.GetComponent<PivotCamera>();
         pivot.target = cameraPoint;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update() {
+        if (wind == null) {
+            wind = pivot.gameObject.AddComponent<AudioSource>();
+            wind.playOnAwake = false;
+            wind.clip = windClip;
+            wind.loop = true;
+            wind.Play();
+            wind.volume = 0f;
+        } else {
+            wind.volume = Mathf.Clamp(windVolMult * Mathf.Pow(Mathf.Abs(walker.rb.velocity.y) + windVolOffset, windVolExp), 0f, 1 - GameManager.local.fadeOut.color.a);
+        }
         if (GameManager.local.state == GameManager.GameState.Paused) {
+            wind.Pause();
+            return;
+        }
+        wind.UnPause();
+        if (dead) {
+            if (1 - GameManager.local.fadeOut.color.a == 0) {
+                GameManager.local.LoadHighestPlayable();
+            }
             return;
         }
         int layerMask = ~((1 << 11) | (1 << 12) | (1 << 13) | (1 << 14) | (1 << 16) | (1 << 17)); //all layers except player, enemies, enemy bounding walls, sound waves, player trigger zones, and spaces
@@ -66,5 +94,15 @@ public class PlayerControls : MonoBehaviour {
             }
             rb.velocity = rockSpeed * pivot.transform.forward;
         }
+    }
+
+    public void PlayerDeath() {
+        heartbeat.SetActive(false);
+        walker.forwardGoal = 0f;
+        walker.rightGoal = 0f;
+        walker.angleToTurn = 0f;
+        dead = true;
+        walker.SetDead();
+        GameManager.local.cover = true;
     }
 }

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Self-Made/Scenes/LeverLevel.unity
     guid: f1f24fb5e59ae0d4b91fae2a4e18671e
+  - enabled: 1
+    path: Assets/Self-Made/Scenes/EnemyLevel.unity
+    guid: ce222a0c76cb24f4fab3ee3193c5e5d5
   m_configObjects: {}

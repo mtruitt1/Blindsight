@@ -97,6 +97,10 @@ public class BipedWalker : SoundReceiver {
         jump = false;
     }
 
+    public void SetDead() {
+        model.SetBool("Dead", true);
+    }
+
     private void LateUpdate() {
         if (!grounded) {
             rb.velocity = new Vector3(moveBall.airSpeed.x, rb.velocity.y, moveBall.airSpeed.z);

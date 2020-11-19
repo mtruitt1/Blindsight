@@ -30,34 +30,44 @@ public class EnemyBiped : BipedWalker {
         }
         if (notAnotherEnemy) {
             HeardSound newSound = new HeardSound(wave.strength, wave.strength / wave.maxStrength, wave.transform.position);
-            forgetTimer += forgetTime * interestMultiplier;
             if (DeterminePathToPoint(newSound.position)) {
+                forgetTimer += forgetTime * interestMultiplier;
                 lastHeard = newSound;
             }
         }
     }
 
     protected bool DeterminePathToPoint(Vector3 position) {
-        Space currentRoom = GameManager.local.GetRoomForPoint(castPoint.position);
-        List<Vector3> path = currentRoom.PathTo(position);
-        if (path?.Count > 0) {
-            goals = path;
-            Debug.Log("Goal is " + goals[0] + ", could find path to point");
-            return true;
-        } else {
-            if (currentRoom.CheckPointInsideRoom(position)) {
-                goals.Add(position);
-                Debug.Log("Goal is " + goals[0] + ", point in same room");
+        List<Space> currentRooms = GameManager.local.GetRoomsForPoint(castPoint.position);
+        if (currentRooms.Count > 0) {
+            List<Vector3> shortestPath = currentRooms[0].PathTo(position);
+            //Debug.Log("Starting from " + currentRooms[0].name);
+            if (currentRooms.Count > 1) {
+                for (int i = 1; i < currentRooms.Count; i++) {
+                    List<Vector3> foundPath = currentRooms[i].PathTo(position);
+                    //Debug.Log("Starting from " + currentRooms[i].name);
+                    if (foundPath != null) {
+                        if (shortestPath == null || foundPath.Count < shortestPath.Count) {
+                            shortestPath = foundPath;
+                        }
+                    }
+                }
+            }
+            if (shortestPath?.Count > 0) {
+                goals = shortestPath;
+                //Debug.Log("Found path to " + position);
                 return true;
-            } else {
-                return false;
             }
         }
+        //Debug.Log("Could not find path to " + position);
+        return false;
     }
 
     protected bool CheckCanSee(Vector3 pos) {
         int layerMask = ~((1 << 11) | (1 << 12) | (1 << 14) | (1 << 16) | (1 << 17)); //all layers except player, enemies, sound waves, player trigger zones, and spaces
-        return !Physics.Linecast(castPoint.position, pos, layerMask);
+        bool canSee = !Physics.Linecast(castPoint.position, pos, layerMask);
+        //Debug.Log(canSee ? "Can see point" : "Can't see point");
+        return canSee;
     }
 
     protected float SumRemainingPath() {
@@ -72,23 +82,42 @@ public class EnemyBiped : BipedWalker {
         return 0f;
     }
 
+    protected void ReducePath() {
+        int runningIndex = goals.Count - 1;
+        while (runningIndex > 0) {
+            if (CheckCanSee(goals[runningIndex])) {
+                for (int i = 0; i < runningIndex; i++) {
+                    goals.RemoveAt(0);
+                }
+                runningIndex = goals.Count - 1;
+            } else {
+                runningIndex--;
+            }
+        }
+    }
+
     protected override void Update() {
         base.Update();
+        if (PlayerControls.local.dead) {
+            goals.Clear();
+            forwardGoal = 0f;
+            angleToTurn = 0f;
+            return;
+        }
         if (lastHeard != null) {
             patrolTimer = 0f;
             forgetTimer -= Time.deltaTime;
             if (forgetTimer <= 0f) {
                 lastHeard = null;
-                goals.Clear();
                 forgetTimer = forgetTime;
             }
         } else {
             forgetTimer = forgetTime;
         }
-        if (goals.Count == 1) {
+        if (goals.Count > 0) {
+            ReducePath();
             if (!CheckCanSee(goals[0])) {
-                forwardGoal = 0f;
-                goals.RemoveAt(0);
+                goals.Clear();
             }
         }
         if (goals.Count > 0) {

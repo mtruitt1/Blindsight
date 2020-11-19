@@ -31,58 +31,64 @@ public class Space : MonoBehaviour {
 
     public bool CheckPointInsideRoom(Vector3 point) {
         Vector3 closest = room.ClosestPoint(point);
-        Debug.Log(name + " has point " + point + (closest == point ? " inside" : " not inside"));
+        //Debug.Log(name + " has point " + point + (closest == point ? " inside" : " not inside"));
         return closest == point;
     }
 
     public List<Vector3> PathTo(Vector3 goal) {
-        List<Space> getPath = SpacesTo(goal, null);
+        List<Space> endSpaces = GameManager.local.GetRoomsForPoint(goal);
+        //foreach (Space end in endSpaces) {
+        //    Debug.Log("Point " + goal + " may be inside " + end.name);
+        //}
+        if (endSpaces.Count == 0) {
+            return null;
+        }
+        List<Space> getPath = SpacesTo(endSpaces, new List<Space>());
         List<Vector3> goals = new List<Vector3>();
         if (getPath?.Count > 0) {
-            foreach (Space space in getPath) {
-                goals.Add(space.transform.position);
+            if (getPath.Count > 1) {
+                foreach (Space space in getPath) {
+                    goals.Add(space.transform.position);
+                }
             }
             goals.Add(goal);
         }
         return goals;
     }
 
-    public List<Space> SpacesTo(Vector3 goal, List<Space> previous) {
+    public List<Space> SpacesTo(List<Space> goals, List<Space> previous) {
         List<Space> allPlusThis = new List<Space>();
         if (previous != null) {
             allPlusThis.AddRange(previous);
         }
         allPlusThis.Add(this);
-        if (CheckPointInsideRoom(goal)) {
-            if (previous == null) {
-                return null;
-            }
+        if (goals.Contains(this)) {
             return allPlusThis;
-        } else {
-            List<Space> noBackwards = new List<Space>();
-            if (previous != null) {
-                foreach (Space connection in connections) {
-                    if (!previous.Contains(connection)) {
-                        noBackwards.Add(connection);
-                    }
+        }
+        List<Space> noBackwards = new List<Space>();
+        if (previous != null) {
+            foreach (Space space in connections) {
+                if (!previous.Contains(space)) {
+                    noBackwards.Add(space);
                 }
             }
-            if (noBackwards.Count > 0) {
-                List<Space> shortestPath = null;
-                foreach (Space connection in noBackwards) {
-                    List<Space> foundPath = connection.SpacesTo(goal, allPlusThis);
+        }
+        if (noBackwards.Count > 0) {
+            List<Space> shortestPath = noBackwards[0].SpacesTo(goals, allPlusThis);
+            if (noBackwards.Count > 1) {
+                for (int i = 1; i < noBackwards.Count; i++) {
+                    List<Space> foundPath = noBackwards[i].SpacesTo(goals, allPlusThis);
                     if (foundPath != null) {
-                        if (shortestPath == null) {
-                            shortestPath = foundPath;
-                        } else if (foundPath.Count < shortestPath.Count) {
+                        if (shortestPath == null || foundPath.Count < shortestPath.Count) {
                             shortestPath = foundPath;
                         }
                     }
                 }
+            }
+            if (shortestPath?.Count > 0) {
                 return shortestPath;
-            } else {
-                return null;
             }
         }
+        return null;
     }
 }

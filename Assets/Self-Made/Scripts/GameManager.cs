@@ -59,6 +59,10 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
+    public void LoadHighestPlayable() {
+        LoadScene(PlayerPrefs.GetInt("HighestLevel") + 1);
+    }
+
     public static void SpawnSound(float str, Vector3 position, bool strike, bool reg, SoundObject maker) {
         if (strike) {
             Instantiate(local.soundSphere, position, Quaternion.identity).Emit(str * local.strikeMult, reg, maker);
@@ -67,16 +71,16 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public Space GetRoomForPoint(Vector3 point) {
-        Debug.Log("START GET ROOM");
+    public List<Space> GetRoomsForPoint(Vector3 point) {
+        List<Space> roomsForPoint = new List<Space>();
+        //Debug.Log("START GET ROOMS");
         foreach (Space space in allSpaces) {
             if (space.CheckPointInsideRoom(point)) {
-                Debug.Log("END GET ROOM");
-                return space;
+                roomsForPoint.Add(space);
             }
         }
-        Debug.Log("END GET ROOM");
-        return null;
+        //Debug.Log("END GET ROOMS");
+        return roomsForPoint;
     }
 
     private void Update() {

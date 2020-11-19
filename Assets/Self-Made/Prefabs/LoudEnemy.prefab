@@ -1,5 +1,63 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4072988163839279121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3338975796419710871}
+  - component: {fileID: 4006403134192263063}
+  - component: {fileID: 640187708656545767}
+  m_Layer: 16
+  m_Name: KillZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3338975796419710871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072988163839279121}
+  m_LocalRotation: {x: -2.9070827e-16, y: -1.873554e-15, z: -0.032931063, w: 0.99945766}
+  m_LocalPosition: {x: 0, y: -33.7, z: -0}
+  m_LocalScale: {x: 99.732254, y: 34.356647, z: 53.36002}
+  m_Children: []
+  m_Father: {fileID: 4298686552472878937}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -3.774}
+--- !u!65 &4006403134192263063
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072988163839279121}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &640187708656545767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4072988163839279121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb10c08e370a1d40a40da968bec16fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 5294ea47e69adec498f0009586743a52, type: 3}
 --- !u!1 &4298686551822155007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1299,11 +1357,12 @@ MonoBehaviour:
   footStepvolMult: 1
   castPoint: {fileID: 4298686552472907957}
   degreesTolerance: 1
-  distanceTolerance: 0.5
+  distanceTolerance: 1
   sprintDistance: 4
   predefinedPath:
     spotsOnPath: []
   forgetTime: 5
+  interestMultiplier: 0.75
 --- !u!54 &4298686552472666148
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1613,6 +1672,7 @@ Transform:
   - {fileID: 4298686552472878825}
   - {fileID: 4298686552472859799}
   - {fileID: 4298686552472924929}
+  - {fileID: 3338975796419710871}
   m_Father: {fileID: 4298686552472854449}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
