@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExitDoor : SoundObject {
+    public static ExitDoor local;
     public int levelNum = -2;
     public float doorSpeed = 5f;
     public Transform posDoor;
@@ -11,6 +12,11 @@ public class ExitDoor : SoundObject {
     public Vector3 endEulers;
     private Vector3 startEulers;
     private float doorStrength = 10f;
+
+    protected override void Start() {
+        base.Start();
+        local = this;
+    }
 
     private void OnTriggerEnter(Collider other) {
         if (!open) {

@@ -48,7 +48,7 @@ public class PlayerControls : MonoBehaviour {
         wind.UnPause();
         if (dead) {
             if (1 - GameManager.local.fadeOut.color.a == 0) {
-                GameManager.local.LoadHighestPlayable();
+                GameManager.local.LoadScene(ExitDoor.local.levelNum);
             }
             return;
         }
