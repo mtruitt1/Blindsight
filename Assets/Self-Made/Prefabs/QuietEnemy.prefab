@@ -576,8 +576,8 @@ MonoBehaviour:
   sprintDistance: 2
   predefinedPath:
     spotsOnPath: []
-  forgetTime: 5
-  interestMultiplier: 0.5
+  forgetTime: 10
+  interestMultiplier: 0.8
 --- !u!136 &7204013486942618910
 CapsuleCollider:
   m_ObjectHideFlags: 0

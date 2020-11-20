@@ -6,6 +6,7 @@ using Michsky.UI.ModernUIPack;
 public class SettingsMenu : MonoBehaviour {
     public static SettingsMenu local;
     public GameObject menu;
+    public GameObject dataMenu;
     public bool fpsOverlay { get; private set; } = false;
     public ButtonManager fpsButton;
     public bool fullScreen { get; private set; } = true;
@@ -47,6 +48,9 @@ public class SettingsMenu : MonoBehaviour {
 
     public void ToggleMenu() {
         menu.SetActive(!menu.activeInHierarchy);
+        if (dataMenu != null) {
+            dataMenu.SetActive(!dataMenu.activeInHierarchy);
+        }
     }
 
     public void ToggleFullscreen() {
@@ -57,6 +61,11 @@ public class SettingsMenu : MonoBehaviour {
     public void ToggleFPS() {
         fpsOverlay = !fpsOverlay;
         PlayerPrefs.SetString("FPSOverlay", fpsOverlay ? "True" : "False");
+    }
+
+    public void UnlockAll() {
+        PlayerPrefs.SetInt("HighestLevel", 10);
+        GameManager.local.LoadMenu();
     }
 
     public void StartClear() {

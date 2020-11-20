@@ -143,6 +143,7 @@ public class EnemyBiped : BipedWalker {
             }
         } else {
             forwardGoal = 0f;
+            angleToTurn = 0f;
             patrolTimer -= Time.deltaTime;
             if (patrolTimer <= 0f) {
                 int random = Random.Range(0, predefinedPath.spotCount - 1);

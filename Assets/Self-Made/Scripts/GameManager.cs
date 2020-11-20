@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     public StrikingObject footStep;
     public float strikeMult = 1f;
     public float moveBallFallDetect = 0.01f;
-    public List<string> levels;
+    public List<Level> levels;
     public GameState state = GameState.Playing;
     public float UIVolume = 1f;
     public AudioClip buttonHover;
@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour {
         if (index > levels.Count - 1) {
             return false;
         }
-        SceneManager.LoadScene(levels[index]);
+        SceneManager.LoadScene(levels[index].sceneName);
         return true;
     }
 
@@ -110,5 +110,11 @@ public class GameManager : MonoBehaviour {
     public enum GameState {
         Playing = 0,
         Paused = 1
+    }
+
+    [System.Serializable]
+    public class Level {
+        public string Name;
+        public string sceneName;
     }
 }

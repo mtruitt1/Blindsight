@@ -537,9 +537,14 @@ MonoBehaviour:
   strikeMult: 1
   moveBallFallDetect: 0.25
   levels:
-  - TutorialLevel
-  - LeverLevel
-  - EnemyLevel
+  - Name: TUTORIAL
+    sceneName: TutorialLevel
+  - Name: LEVER
+    sceneName: LeverLevel
+  - Name: ENEMY
+    sceneName: EnemyLevel
+  - Name: HALLWAYS
+    sceneName: QuietEnemy
   state: 0
   UIVolume: 1
   buttonHover: {fileID: 8300000, guid: b3c5b1aba35ea4e458d9b995bc178e34, type: 3}

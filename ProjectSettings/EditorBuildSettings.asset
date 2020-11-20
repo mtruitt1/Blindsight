@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Self-Made/Scenes/Game.unity
+    path: 
     guid: 98024dab2b410a04185d92f871dade39
   - enabled: 1
     path: Assets/Self-Made/Scenes/MainMenu.unity
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Self-Made/Scenes/EnemyLevel.unity
     guid: ce222a0c76cb24f4fab3ee3193c5e5d5
+  - enabled: 1
+    path: Assets/Self-Made/Scenes/QuietEnemy.unity
+    guid: fb6adbf5a8a4e034cbfbe337095d4782
   m_configObjects: {}

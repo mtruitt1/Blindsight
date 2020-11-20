@@ -1327,7 +1327,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: df813bd68eaaf814fac89bd5137437db, type: 3}
   owner: {fileID: 4298686552472666150}
   ignoreReg: 1
-  strengthMinRaw: 0
+  strengthMinRaw: 0.75
   strengthMinPercent: 0
   moveBall: {fileID: 4298686551822155000}
   root: {fileID: 4298686552472903229}

@@ -17,7 +17,9 @@ public class Door : SoundBouncer {
     }
 
     protected override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
-        PlayRandSound(strength, false, false);
+        if (!open) {
+            PlayRandSound(strength, false, false);
+        }
         open = true;
     }
 
