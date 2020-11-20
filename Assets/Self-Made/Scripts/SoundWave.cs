@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//the actual soundwave, a sphere which expands outwards until it dies out
 public class SoundWave : MonoBehaviour {
     public float speed = 5f;
     public float fadeExponent = 1f;
@@ -12,6 +13,7 @@ public class SoundWave : MonoBehaviour {
     public bool followOrigin = false;
     private Material mat;
 
+    //the emit function is like a constructor for the class, but not exactly
     public SoundWave Emit(float str, bool reg, SoundObject maker) {
         name = "SoundWave(" + maker.name + ")";
         maxStrength = str;
@@ -23,6 +25,7 @@ public class SoundWave : MonoBehaviour {
         return this;
     }
 
+    //expand and fade the intensity of the light effect, only when the game is unpaused
     private void Update() {
         if (GameManager.local.state == GameManager.GameState.Paused) {
             return;
@@ -40,6 +43,7 @@ public class SoundWave : MonoBehaviour {
         }
     }
 
+    //whenever this soundwave hits something, it should try to pass the sound on to it if it can
     private void OnTriggerEnter(Collider other) {
         //Debug.Log("Hit " + other.gameObject.name + " but didn't give sound");
         if (other.TryGetComponent(out SoundReceiver listener)) {

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Michsky.UI.ModernUIPack;
 
+//the main menu class, where all of the menu stuff happens
+//this class is mostly public void functions for easy "OnClick()" callbacks
 public class MainMenu : MonoBehaviour {
     public ButtonManager playButton;
     public Transform heartBeatSpawn;
@@ -13,6 +15,7 @@ public class MainMenu : MonoBehaviour {
     public Button lastLev;
     public Button nextLev;
 
+    //do some basic game setup stuff, make sure the values for highest level are there. update the top button text if they are
     private void Start() {
         Cursor.lockState = CursorLockMode.None;
         if (PlayerPrefs.HasKey("HighestLevel")) {
@@ -27,6 +30,7 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
+    //make sure the load level button is displaying the right name and disable/enable the arrows depending on the state
     private void Update() {
         foreach (Transform child in heartBeatSpawn) {
             child.parent = null;
@@ -49,6 +53,7 @@ public class MainMenu : MonoBehaviour {
         }
     }
 
+    //play the highest level, or restart if past the highest level
     public void Play() {
         if (PlayerPrefs.GetInt("HighestLevel") >= GameManager.local.levels.Count - 1) {
             PlayerPrefs.SetInt("HighestLevel", -1);
@@ -56,32 +61,39 @@ public class MainMenu : MonoBehaviour {
         GameManager.local.LoadHighestPlayable();
     }
 
+    //loads a level based on the load level button
     public void LoadLevel() {
         GameManager.local.LoadScene(loadLevelButton);
     }
 
+    //decreases the load level button's selected level
     public void DecreaseLevel() {
         loadLevelButton--;
         //loadLevelButton = Mathf.Clamp(Mathf.Clamp(loadLevelButton--, 0, GameManager.local.levels.Count - 1), 0, PlayerPrefs.GetInt("HighestLevel") + 1);
     }
 
+    //increases the load level button's selected level
     public void IncreaseLevel() {
         loadLevelButton++;
         //loadLevelButton = Mathf.Clamp(Mathf.Clamp(loadLevelButton++, 0, GameManager.local.levels.Count - 1), 0, PlayerPrefs.GetInt("HighestLevel") + 1);
     }
 
+    //quits the game
     public void Quit() {
         Application.Quit();
     }
 
+    //toggles the credits and licensing menu
     public void ToggleCredits() {
         credits.SetActive(!credits.activeInHierarchy);
     }
 
+    //plays the hover sound
     public void PlayHover() {
         AudioSource.PlayClipAtPoint(GameManager.local.buttonHover, Camera.main.transform.position, GameManager.local.UIVolume);
     }
 
+    //plays the click sound
     public void PlayClick() {
         AudioSource.PlayClipAtPoint(GameManager.local.buttonClick, Camera.main.transform.position, GameManager.local.UIVolume);
     }

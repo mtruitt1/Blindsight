@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//the base class for anything which should receive and react to sound
+//the soundwave class looks for a component of this type, or something that inherits from it, in order to pass sounds along
 public class SoundReceiver : SoundObject {
     public bool ignoreReg = true;
     public float strengthMinRaw = 0f;
     public float strengthMinPercent = 0f;
     protected HeardSound lastHeard = null;
 
+    //gets run by the soundwave, does any preliminary checking the soundreceiver should do before passing the information along to the next function in the queue for the object or inherited object
     public void SoundTouched(SoundWave wave) {
         List<SoundObject> objects = wave.origin?.GetParentList();
         SoundObject highestParent = objects?[0];
@@ -18,9 +21,11 @@ public class SoundReceiver : SoundObject {
         }
     }
 
+    //empty for any inheriting classes to fill in as needed
     protected virtual void SoundReact(SoundWave wave, SoundObject highest, SoundObject maker) {
     }
 
+    //allows semipermanent storing of sounds even though the soundwave class isn't permanent
     public class HeardSound {
         public float strength;
         public float percent;

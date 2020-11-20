@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//handles all player input and updates the biped walker to reflect it
+//also does some other stuff such as wind noise, rock throwing, and player death
 public class PlayerControls : MonoBehaviour {
     public static PlayerControls local;
     public BipedWalker walker;
@@ -23,6 +25,7 @@ public class PlayerControls : MonoBehaviour {
     public float windVolOffset = 0f;
     public bool dead { get; private set; } = false;
 
+    //gets the pivot camera if not already assigned, sets its target, and locks the cursor in. sets the local playercontrols to this
     private void Start() {
         local = this;
         pivot = Camera.main.GetComponent<PivotCamera>();
@@ -30,6 +33,7 @@ public class PlayerControls : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    //sets turn goal, forward and right goals, as well as watched for sprint, crouch, and jump inputs. throws a rock if right mouse button pressed
     private void Update() {
         if (wind == null) {
             wind = pivot.gameObject.AddComponent<AudioSource>();
@@ -96,6 +100,7 @@ public class PlayerControls : MonoBehaviour {
         }
     }
 
+    //does all the necessary player death stuff- stop the player, stop the player's heart, mark the player as dead, and starts the fade to black
     public void PlayerDeath() {
         heartbeat.SetActive(false);
         walker.forwardGoal = 0f;

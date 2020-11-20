@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//the enemy biped class which handles all sound detection, pathfinding, etc. to make the enemies move between patrol points and heard sounds
+//not sure why this is serializeable but at the time of writing this comment, Unity is not open so I will not remove it for fear something may break
 [System.Serializable]
 public class EnemyBiped : BipedWalker {
     public Transform castPoint;
@@ -15,6 +17,7 @@ public class EnemyBiped : BipedWalker {
     protected float forgetTimer = 0f;
     protected float patrolTimer = 0f;
 
+    //makes sure that the footstep colliders are owned by this, to prevent the enemy from detecting its own footsteps
     protected override void Start() {
         base.Start();
         foreach (StrikingObject striker in strikers) {
@@ -22,6 +25,7 @@ public class EnemyBiped : BipedWalker {
         }
     }
 
+    //react to a sound by checking to make sure it's not from another enemy, then seeing if it can pathfind to it. if yes, it updates its forget timer and changes the last hear sound to the one it's reacting to
     protected override void SoundReact(SoundWave wave, SoundObject highest, SoundObject maker) {
         base.SoundReact(wave, highest, maker);
         bool notAnotherEnemy = true;
@@ -37,6 +41,7 @@ public class EnemyBiped : BipedWalker {
         }
     }
 
+    //finds a path from the point the enemy biped is at to the point it heard a sound(or needs to reach for patrolling)
     protected bool DeterminePathToPoint(Vector3 position) {
         List<Space> currentRooms = GameManager.local.GetRoomsForPoint(castPoint.position);
         if (currentRooms.Count > 0) {
@@ -63,6 +68,7 @@ public class EnemyBiped : BipedWalker {
         return false;
     }
 
+    //uses a linecast with layermask to check if the biped can see the point passed in, generally used to shorten the path
     protected bool CheckCanSee(Vector3 pos) {
         int layerMask = ~((1 << 11) | (1 << 12) | (1 << 14) | (1 << 16) | (1 << 17)); //all layers except player, enemies, sound waves, player trigger zones, and spaces
         bool canSee = !Physics.Linecast(castPoint.position, pos, layerMask);
@@ -70,6 +76,7 @@ public class EnemyBiped : BipedWalker {
         return canSee;
     }
 
+    //used to get the total distance of the remaining path
     protected float SumRemainingPath() {
         if (goals.Count > 1) {
             float returnVal = 0f;
@@ -82,6 +89,7 @@ public class EnemyBiped : BipedWalker {
         return 0f;
     }
 
+    //used to reduce the path as much as possible-- essentially "if I can draw a direct line to the end point, why bother stopping at the ones between?"
     protected void ReducePath() {
         int runningIndex = goals.Count - 1;
         while (runningIndex > 0) {
@@ -96,6 +104,7 @@ public class EnemyBiped : BipedWalker {
         }
     }
 
+    //controls the timers for forgetting sounds, updating patrol, and actually changing goals and forward/turn goals
     protected override void Update() {
         base.Update();
         if (PlayerControls.local.dead) {

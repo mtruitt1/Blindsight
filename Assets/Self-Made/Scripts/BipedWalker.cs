@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//a biped walker is a script for any humanoids which need to move around the map: this script allows them to walk, turn, sprint, jump, and crouch
+//this is important partially so that all bipeds have footsteps
 public class BipedWalker : SoundReceiver {
     protected Animator model;
     public MoveBall moveBall;
@@ -31,6 +33,7 @@ public class BipedWalker : SoundReceiver {
     public float footStepvolMult = 1f;
     protected List<StrikingObject> strikers = new List<StrikingObject>();
 
+    //get some of the base components required for the biped walker, such as the animator, rigidbody, capsule collider, and set up the foot colliders for footsteps
     protected override void Start() {
         base.Start();
         model = GetComponent<Animator>();
@@ -61,6 +64,7 @@ public class BipedWalker : SoundReceiver {
         }
     }
 
+    //set the step strength based on stance, allow rotation, and smoothly manipulate the actual current forward/right/turn values for smooth transitions into animations
     protected virtual void Update() {
         if (GameManager.local.state == GameManager.GameState.Paused) {
             return;
@@ -97,16 +101,19 @@ public class BipedWalker : SoundReceiver {
         jump = false;
     }
 
+    //exclusively for the player, sets the Animator component "Dead" bool true, playing the death animation
     public void SetDead() {
         model.SetBool("Dead", true);
     }
 
+    //runs after Update(), intended to make sure that the velocity the player had when they left the ground is maintained
     private void LateUpdate() {
         if (!grounded) {
             rb.velocity = new Vector3(moveBall.airSpeed.x, rb.velocity.y, moveBall.airSpeed.z);
         }
     }
 
+    //a foot "class". technically this could be a struct
     [System.Serializable]
     public class Foot {
         public Rigidbody footRB;

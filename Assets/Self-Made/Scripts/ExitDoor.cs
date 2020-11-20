@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//the class responsible for ending the level and moving onto the next one
+//there should only be one of these per level
 public class ExitDoor : SoundObject {
     public static ExitDoor local;
     public int levelNum = -2;
@@ -13,11 +15,13 @@ public class ExitDoor : SoundObject {
     private Vector3 startEulers;
     private float doorStrength = 10f;
 
+    //do any soundobject start stuff, then set ExitDoor.local to this for easy access to the level number
     protected override void Start() {
         base.Start();
         local = this;
     }
 
+    //when the player enters the trigger, increase the highest level number and make the door open
     private void OnTriggerEnter(Collider other) {
         if (!open) {
             open = true;
@@ -32,6 +36,7 @@ public class ExitDoor : SoundObject {
         }
     }
 
+    //actually swing the doors open, and when they're fully open, switch the scene to the next one, or the menu if no higher level exists
     private void Update() {
         if (GameManager.local.state == GameManager.GameState.Paused) {
             return;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//makes the camera pivot around the target
+//pulled this script from an old Unity project and fixed it up to work with this game
 [AddComponentMenu("Camera-Control/Mouse Orbit with zoom")]
 public class PivotCamera : MonoBehaviour {
 
@@ -19,6 +21,7 @@ public class PivotCamera : MonoBehaviour {
     float x = 45f;
     float y = 45f;
 
+    //runs after all updates, adjusts the camera position and rotation based on mouse movement
     void LateUpdate() {
         if (GameManager.local.state == GameManager.GameState.Paused) {
             return;
@@ -57,6 +60,7 @@ public class PivotCamera : MonoBehaviour {
         }
     }
 
+    //clamps an angle betwen the min and max values, but makes sure the numbers are normalized first(nothing with an absolute value greater than 360)
     public static float ClampAngle(float angle, float min, float max) {
         if (angle < -360F)
             angle += 360F;

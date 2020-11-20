@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//the heartbeat class which spawns periodic sounds
+//this is the only class which actually spawns in sounds which follow their spawner
 public class HeartBeat : SoundObject {
     public float strength = 0.5f;
     public int heartRate = 70;
     private float bps = 0f;
     public bool followOrigin = true;
 
+    //count down the timer, spawn sounds when appropriate
     private void Update() {
         if (GameManager.local.state == GameManager.GameState.Paused) {
             return;
