@@ -101,7 +101,7 @@ MonoBehaviour:
   pullParent: 0
   volMult: 1
   sounds:
-  - {fileID: 8300000, guid: 34e0d6d20b59c7c44902419ac6d6dfb6, type: 3}
+  - {fileID: 8300000, guid: 156798826ad20714c907c2336c2f6240, type: 3}
   owner: {fileID: 449293652168735542}
   ignoreReg: 1
   strengthMinRaw: 0
@@ -115,8 +115,8 @@ MonoBehaviour:
   indicator: {fileID: 449293651455596246}
   player: {fileID: 0}
   activationStrength: 3
-  activationVol: 1
   bounceStrength: 0.75
+  flipSound: {fileID: 8300000, guid: 34e0d6d20b59c7c44902419ac6d6dfb6, type: 3}
 --- !u!65 &2446669996686332442
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -14,8 +14,9 @@ public class Lever : SoundBouncer {
     private bool flip = false;
     private float flipTimer;
     public float activationStrength;
-    public float activationVol = 1f;
     public float bounceStrength;
+    public AudioClip flipSound;
+    private bool inRange = false;
 
     //turn the indicator off, get the starting euler angles, and set the flip timer
     protected override void Start() {
@@ -27,8 +28,7 @@ public class Lever : SoundBouncer {
 
     //react to a sound and bounce it if not flipped
     protected override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
-        if (!flip) {
-            volMult = 0f;
+        if (!flip && !inRange) {
             PlayRandSound(bounceStrength, false, true);
         }
     }
@@ -40,17 +40,18 @@ public class Lever : SoundBouncer {
             indicator.gameObject.SetActive(false);
             rotate.localEulerAngles = Vector3.Lerp(endEulers, startEulers, flipTimer / flipSpeed);
             if (flipTimer <= 0f && flipSpeed > 0f) {
-                volMult = activationVol;
-                PlayRandSound(activationStrength, false, false);
+                PlaySound(flipSound, activationStrength, false, false);
                 flipSpeed = 0f;
             }
         } else {
             if (Vector3.Distance(player.transform.position, transform.position) <= activationDistance) {
+                inRange = true;
                 indicator.gameObject.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E)) {
                     flip = true;
                 }
             } else {
+                inRange = false;
                 indicator.gameObject.SetActive(false);
             }
         }

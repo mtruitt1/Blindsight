@@ -23,6 +23,14 @@ public class SoundObject : MonoBehaviour {
         finishedInit = true;
     }
 
+    //play a specific sound
+    protected void PlaySound(AudioClip clip, float strength, bool strike, bool reg) {
+        if (volMult > 0 && finishedInit) {
+            AudioSource.PlayClipAtPoint(clip, transform.position, strength * volMult);
+        }
+        GameManager.SpawnSound(strength, transform.position, strike, reg, this);
+    }
+
     //play a random sound from its library
     protected void PlayRandSound(float strength, bool strike, bool reg) {
         if (volMult > 0 && finishedInit) {
