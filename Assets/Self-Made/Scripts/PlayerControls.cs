@@ -74,6 +74,7 @@ public class PlayerControls : MonoBehaviour {
             }
             if (Input.GetKeyDown(KeyCode.Space) && walker.moveBall.onGround) {
                 walker.jump = true;
+                walker.moveBall.GetComponent<Rigidbody>().velocity += new Vector3(walker.rightGoal, 0f, walker.forwardGoal);
                 walker.rb.velocity += Vector3.up * jumpPower;
             }
             if (Input.GetKey(KeyCode.C)) {
