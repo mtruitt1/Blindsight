@@ -10,7 +10,9 @@ public class KillZone : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
             PlayerControls.local.PlayerDeath();
-            AudioSource.PlayClipAtPoint(clip, transform.position, 3f);
+            if (clip != null) {
+                AudioSource.PlayClipAtPoint(clip, transform.position, 3f);
+            }
         }
     }
 }
