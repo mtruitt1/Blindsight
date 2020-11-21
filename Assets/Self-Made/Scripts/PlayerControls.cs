@@ -24,6 +24,7 @@ public class PlayerControls : MonoBehaviour {
     public float windVolExp = 1f;
     public float windVolOffset = 0f;
     public bool dead { get; private set; } = false;
+    private float jumpCoolDown = 0f;
 
     //gets the pivot camera if not already assigned, sets its target, and locks the cursor in. sets the local playercontrols to this
     private void Start() {
@@ -62,6 +63,7 @@ public class PlayerControls : MonoBehaviour {
         }
         walker.forwardGoal = Input.GetAxis("Vertical");
         walker.rightGoal = Input.GetAxis("Horizontal");
+        jumpCoolDown -= Time.deltaTime;
         if (walker.grounded) {
             Vector3 cameraFacing = pivot.transform.forward;
             cameraFacing.y = 0f;
@@ -72,10 +74,11 @@ public class PlayerControls : MonoBehaviour {
                 walker.angleToTurn = 0f;
                 transform.LookAt(transform.position + cameraFacing, Vector3.up);
             }
-            if (Input.GetKeyDown(KeyCode.Space) && walker.moveBall.onGround) {
+            if (Input.GetKeyDown(KeyCode.Space) && jumpCoolDown <= 0f) {
                 walker.jump = true;
                 walker.moveBall.GetComponent<Rigidbody>().velocity += new Vector3(walker.rightGoal, 0f, walker.forwardGoal);
                 walker.rb.velocity += Vector3.up * jumpPower;
+                jumpCoolDown = GameManager.local.moveBallFallDetect;
             }
             if (Input.GetKey(KeyCode.C)) {
                 walker.crouch = true;
