@@ -569,7 +569,7 @@ MonoBehaviour:
   crouch: 0
   sprint: 0
   footstepSounds: []
-  footStepvolMult: 1
+  footStepvolMult: 0.5
   castPoint: {fileID: 7200727209594220675}
   degreesTolerance: 1
   distanceTolerance: 1

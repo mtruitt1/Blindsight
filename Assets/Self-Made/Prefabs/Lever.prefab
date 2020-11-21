@@ -49,6 +49,7 @@ MonoBehaviour:
   owner: {fileID: 449293652168735542}
   strength: 0.25
   heartRate: 180
+  followOrigin: 1
 --- !u!1 &449293652168735540
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +105,7 @@ MonoBehaviour:
   owner: {fileID: 449293652168735542}
   ignoreReg: 1
   strengthMinRaw: 0
-  strengthMinPercent: 0
+  strengthMinPercent: 0.6
   onlyFrom: {fileID: 0}
   strength: 0
   activationDistance: 2
