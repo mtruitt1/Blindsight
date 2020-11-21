@@ -6,7 +6,7 @@ using UnityEngine;
 public class MoveBall : MonoBehaviour {
     public bool grounded { get; private set; }
     public Vector3 airSpeed { get; private set; } = new Vector3();
-    private bool onGround = true;
+    public bool onGround { get; private set; } = true;
     private float unGroundedTime = 0f;
 
     //set onground, the "fake" grounded variable to true when colliding

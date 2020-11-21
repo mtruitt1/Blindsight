@@ -72,7 +72,7 @@ public class PlayerControls : MonoBehaviour {
                 walker.angleToTurn = 0f;
                 transform.LookAt(transform.position + cameraFacing, Vector3.up);
             }
-            if (Input.GetKeyDown(KeyCode.Space)) {
+            if (Input.GetKeyDown(KeyCode.Space) && walker.moveBall.onGround) {
                 walker.jump = true;
                 walker.rb.velocity += Vector3.up * jumpPower;
             }
