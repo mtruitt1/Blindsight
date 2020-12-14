@@ -19,6 +19,8 @@ public class BipedWalker : SoundReceiver {
     public float angleToTurn = 0f;
     public float turnSpeed = 5f;
     public float stepStrength = 1f;
+    public float crouchMult = 0.5f;
+    public float sprintMult = 2f;
     public float minColMag = 1f;
     public float maxColMag = 1000f;
     public float forwardCurrent { get; protected set; } = 0f;
@@ -70,9 +72,9 @@ public class BipedWalker : SoundReceiver {
             return;
         }
         if (crouch || turnCurrent != 0f) {
-            realStrength = stepStrength * 0.5f;
+            realStrength = stepStrength * crouchMult;
         } else if (sprint) {
-            realStrength = stepStrength * 2f;
+            realStrength = stepStrength * sprintMult;
         } else {
             realStrength = stepStrength;
         }

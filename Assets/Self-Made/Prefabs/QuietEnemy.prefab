@@ -562,7 +562,9 @@ MonoBehaviour:
   turnGoal: 0
   angleToTurn: 0
   turnSpeed: 5
-  stepStrength: 0.5
+  stepStrength: 0.25
+  crouchMult: 1
+  sprintMult: 1.5
   minColMag: 1
   maxColMag: 1000
   jump: 0
