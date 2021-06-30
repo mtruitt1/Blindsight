@@ -1,0 +1,9 @@
+BLINDSIGHT - A no-vision stealth platformer game
+In Blindsight, you only see by making sounds. Every sound you make can be heard by other things in the level, whether they be levers or enemies. Carefully using these sounds, you must navigate to open doors and get to the end.
+
+Important design notes:
+- Inheritance: This game utilizes inheritance in C# to ensure that most, if not all, objects that make sound function on the same rules. It also ensures that any changes to base sound making functions are reflected across all sound makers. Any objects which must listen for sounds inherit from a single class, also to make sure that everything that receives sound behaves similarly. Sound receivers inherit from sound objects to make sure that they also don't pick up their own sounds, potentially leading to endless loops where a receiver will receive a sound, move, make a sound, and then receive that sound and move accordingly.
+
+- Biped walkers & pathfinding: The player and two enemy types in-game are both bipedal, and thus the biped walker script handles both of their movement. The enemy biped class allows for goal setting, and does all the pathfinding in combination with space objects which define where it can move. Pathfinding is custom built, and uses a recursive goal searching method (room-based) to find the shortest path possible to a given point. It also reduces its path by checking what the furthest goal it can see is, then paths directly to it. Biped walkers control animation controllers, which have all the necessary animations for walking, running, and jumping.
+
+- Shaders: The shader used to show sound waves is a custom-written shader graph that uses scene depth and camera rotation to highlight intersections between the sphere object of the wave and any terrain. The game has no lighting, and the color of the intersections is set on an emission map, which makes it visible regardless of lighting.

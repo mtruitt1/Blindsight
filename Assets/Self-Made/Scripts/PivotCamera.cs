@@ -22,7 +22,7 @@ public class PivotCamera : MonoBehaviour {
     float y = 45f;
 
     //adjusts the camera position and rotation based on mouse movement
-    void Update() {
+    void LateUpdate() {
         if (GameManager.local.state == GameManager.GameState.Paused) {
             return;
         }
