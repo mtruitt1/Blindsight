@@ -11,7 +11,7 @@ public class Gear : SoundBouncer {
     //bounce sound when hit
     protected override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
         base.DoBounceBehavior(wave, highest, maker);
-        turn = true;
+        turn = !turn;
     }
 
     //spin if meant to spin

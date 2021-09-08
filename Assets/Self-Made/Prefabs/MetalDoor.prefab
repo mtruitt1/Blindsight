@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 1507087717812997732}
   - component: {fileID: 1441777187319305734}
   - component: {fileID: 418671272105598342}
-  - component: {fileID: 4956637720232194376}
+  - component: {fileID: 4457101552753451711}
   m_Layer: 15
   m_Name: SM_Env_Door_Bars_01
   m_TagString: Object
@@ -398,7 +398,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4956637720232194376
+--- !u!114 &4457101552753451711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -407,19 +407,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1507087717815060684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f327a2d8279521e40ae8b5d058e68265, type: 3}
+  m_Script: {fileID: 11500000, guid: 063a5c19b308dea4fae9668d76aa2267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   pullParent: 0
   volMult: 2
   sounds:
   - {fileID: 8300000, guid: fc11ee2874493534fbfa28075d2341ed, type: 3}
-  owner: {fileID: 4956637720232194376}
+  owner: {fileID: 0}
   ignoreReg: 0
   strengthMinRaw: 0
   strengthMinPercent: 0
   onlyFrom: {fileID: 0}
   strength: 5
-  openTime: 2
+  moveTime: 2
+  endPos: {x: 0.813, y: 0.047, z: 0}
   endEulers: {x: 0, y: -90, z: 0}
-  rotate: {fileID: 1507087717815360552}
+  endScale: {x: 1, y: 1, z: 1}
+  moveObject: {fileID: 1507087717815360552}
