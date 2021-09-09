@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,6 +36,9 @@ public class Lever : SoundBouncer {
 
     //flip the switch, or otherwise pulse when the player is nearby until they press E
     private void Update() {
+        if (player == null) {
+            player = PlayerControls.local.GetComponent<BipedWalker>();
+        }
         if (Vector3.Distance(player.transform.position, transform.position) <= activationDistance) {
             inRange = true;
             indicator.gameObject.SetActive(true);
@@ -52,7 +54,7 @@ public class Lever : SoundBouncer {
             flipTimer = Mathf.Clamp(flipTimer + (state ? -Time.deltaTime : Time.deltaTime), 0f, flipSpeed);
             rotate.localEulerAngles = Vector3.Lerp(endEulers, startEulers, flipTimer / flipSpeed);
             indicator.gameObject.SetActive(false);
-            if (flipTimer == 0f || Math.Abs(flipTimer - flipSpeed) < 0.0001f) {
+            if (flipTimer == 0f || Mathf.Abs(flipTimer - flipSpeed) < 0.0001f) {
                 flip = false;
                 PlaySound(flipSound, activationStrength, false, false);
             }

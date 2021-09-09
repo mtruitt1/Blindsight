@@ -336,6 +336,7 @@ MonoBehaviour:
   volMult: 1
   sounds:
   - {fileID: 8300000, guid: 36def47e4ff62cc4d9780da6f66eb1c4, type: 3}
+  suppressable: 1
   owner: {fileID: 4219585758667180989}
   strength: 10
   coolDown: 0.25
@@ -648,6 +649,7 @@ GameObject:
   - component: {fileID: 4219585758667180988}
   - component: {fileID: 4219585758667033567}
   - component: {fileID: 4219585758667033566}
+  - component: {fileID: 4177924329821193987}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -712,6 +714,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fc27f4b361fc0834cbc4e6b2c9def9c5, type: 3}
   - {fileID: 8300000, guid: 459a5d85137dbb343ac8539c3e30a82f, type: 3}
   - {fileID: 8300000, guid: dfcfad9bec6731a40a1574178b831fd7, type: 3}
+  suppressable: 0
   owner: {fileID: 4219585758667180989}
   ignoreReg: 1
   strengthMinRaw: 0
@@ -735,6 +738,8 @@ MonoBehaviour:
   angleToTurn: 0
   turnSpeed: 5
   stepStrength: 1
+  crouchMult: 0.5
+  sprintMult: 2
   minColMag: 1
   maxColMag: 1000
   jump: 0
@@ -798,6 +803,14 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!81 &4177924329821193987
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4219585758667033564}
+  m_Enabled: 1
 --- !u!1 &4219585758667040796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,6 +1541,7 @@ MonoBehaviour:
   volMult: 4
   sounds:
   - {fileID: 8300000, guid: edd19e1d6f8a9424d8312010487c5b8b, type: 3}
+  suppressable: 0
   owner: {fileID: 4219585758667180989}
   strength: 0.25
   heartRate: 70
@@ -2240,7 +2254,9 @@ MonoBehaviour:
   volMult: 2
   sounds:
   - {fileID: 8300000, guid: fff1709ab8342e647a72d8fd879c6df4, type: 3}
+  suppressable: 1
   owner: {fileID: 4219585758667180989}
   strengthMult: 1
   minColMag: 1
   maxColMag: 1000
+  freezeTimer: -1

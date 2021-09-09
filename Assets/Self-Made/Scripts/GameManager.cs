@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour {
         allSpaces.AddRange(GameObject.FindObjectsOfType<Space>());
         fadeOut.color = new Color(0, 0, 0, cover ? 1f : 0f);
         cover = false;
-        musicPlayer = Camera.main.GetComponent<AudioSource>();
+        musicPlayer = new GameObject().AddComponent<AudioSource>();
         musicPlayer.volume = (1 - fadeOut.color.a) * ambientVol;
         musicPlayer.clip = ambient[Random.Range(0, ambient.Count)];
         musicPlayer.Play();
@@ -72,9 +72,9 @@ public class GameManager : MonoBehaviour {
     //spawns a sound wave at a specific point, typically at the same point as a sound is playing
     public static void SpawnSound(float str, Vector3 position, bool strike, bool reg, SoundObject maker) {
         if (strike) {
-            Instantiate(local.soundSphere, position, Quaternion.identity).Emit(str * local.strikeMult, reg, maker);
+            Instantiate(local.soundSphere, position, Quaternion.identity).Emit(str * local.strikeMult, reg, maker, maker.suppressable);
         } else {
-            Instantiate(local.soundSphere, position, Quaternion.identity).Emit(str, reg, maker);
+            Instantiate(local.soundSphere, position, Quaternion.identity).Emit(str, reg, maker, maker.suppressable);
         }
     }
 
@@ -109,6 +109,11 @@ public class GameManager : MonoBehaviour {
         }
         fpsText.text = System.Math.Round(fps, 1).ToString("0.0");
         fadeOut.color = new Color(0, 0, 0, Mathf.Clamp01(fadeOut.color.a + (Time.deltaTime * (cover ? 1 : -1) * fadeSpeed)));
+        try {
+            musicPlayer.transform.parent = PlayerControls.local.transform;
+        } catch {
+            //ignore
+        }
         musicPlayer.volume = (1 - fadeOut.color.a) * ambientVol;
         if (!musicPlayer.isPlaying) {
             musicPlayer.clip = ambient[Random.Range(0, ambient.Count)];

@@ -547,6 +547,8 @@ MonoBehaviour:
     sceneName: QuietEnemy
   - Name: FLOATING
     sceneName: MultipartLevel
+  - Name: SUPPRESSION
+    sceneName: Suppression
   state: 0
   UIVolume: 1
   buttonHover: {fileID: 8300000, guid: b3c5b1aba35ea4e458d9b995bc178e34, type: 3}
@@ -557,7 +559,7 @@ MonoBehaviour:
   cover: 1
   fadeOut: {fileID: 3010263670975051169}
   fadeSpeed: 0.5
-  ambientVol: 0.5
+  ambientVol: 0.7
   ambient:
   - {fileID: 8300000, guid: 0065bd5bf0c5b7143b3cbe2cc4106f8a, type: 3}
   - {fileID: 8300000, guid: 571a07d5eacd2b747b26e7fe544271c4, type: 3}

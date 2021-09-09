@@ -8,6 +8,7 @@ public class SoundObject : MonoBehaviour {
     public bool pullParent = false;
     public float volMult = 1f;
     public List<AudioClip> sounds;
+    public bool suppressable = true;
     public SoundObject owner = null;
     protected bool finishedInit = false;
 

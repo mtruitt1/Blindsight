@@ -71,7 +71,7 @@ public class EnemyBiped : BipedWalker {
     //uses a linecast with layermask to check if the biped can see the point passed in, generally used to shorten the path
     protected bool CheckCanSee(Vector3 pos) {
         int layerMask = ~((1 << 11) | (1 << 12) | (1 << 14) | (1 << 16) | (1 << 17)); //all layers except player, enemies, sound waves, player trigger zones, and spaces
-        bool canSee = !Physics.Linecast(castPoint.position, pos, layerMask);
+        bool canSee = !Physics.Linecast(castPoint.position, pos, layerMask, QueryTriggerInteraction.Ignore);
         //Debug.Log(canSee ? "Can see point" : "Can't see point");
         return canSee;
     }
@@ -129,37 +129,35 @@ public class EnemyBiped : BipedWalker {
                 goals.Clear();
             }
         }
+        //Debug.Log("Goal count: " + goals.Count);
         if (goals.Count > 0) {
             float distance = Vector3.Distance(transform.position, goals[0]);
             sprint = distance + SumRemainingPath() >= sprintDistance;
             if (distance <= distanceTolerance) {
                 forwardGoal = 0f;
+                Debug.Log("Within tolerance to goal " + goals[0]);
                 goals.RemoveAt(0);
-                if (goals.Count == 0) {
-                    forgetTimer -= forgetTime / 2;
-                }
             } else {
                 Vector3 flatHere = transform.position;
                 flatHere.y = 0f;
                 Vector3 flatThere = goals[0];
                 flatThere.y = 0f;
-                if (Vector3.Angle(root.forward, flatThere - flatHere) <= degreesTolerance) {
-                    angleToTurn = 0f;
-                } else {
-                    angleToTurn = Vector3.SignedAngle(root.forward, flatThere - flatHere, transform.up);
-                }
+                angleToTurn = Vector3.Angle(root.forward, flatThere - flatHere) <= degreesTolerance ? 0f : Vector3.SignedAngle(root.forward, flatThere - flatHere, transform.up);
                 forwardGoal = 1f;
             }
         } else {
+            //Debug.Log("Waiting at patrol point...");
             forwardGoal = 0f;
             angleToTurn = 0f;
             patrolTimer -= Time.deltaTime;
             if (patrolTimer <= 0f) {
+                Debug.Log("Selecting new patrol point");
                 int random = Random.Range(0, predefinedPath.spotCount - 1);
                 PatrolPath.PatrolSpot spot = predefinedPath[random];
                 predefinedPath.MoveToBack(random);
                 DeterminePathToPoint(spot.area.transform.position);
                 patrolTimer = spot.timeToStay;
+                Debug.Log("Headed to " + spot.area.transform.position);
             }
         }
     }

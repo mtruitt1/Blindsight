@@ -58,7 +58,7 @@ public class PlayerControls : MonoBehaviour {
             return;
         }
         int layerMask = ~((1 << 11) | (1 << 12) | (1 << 13) | (1 << 14) | (1 << 16) | (1 << 17)); //all layers except player, enemies, enemy bounding walls, sound waves, player trigger zones, and spaces
-        if (Physics.Linecast(cameraPoint.position, pivot.transform.position, out RaycastHit hitInfo, layerMask)) {
+        if (Physics.Linecast(cameraPoint.position, pivot.transform.position, out RaycastHit hitInfo, layerMask, QueryTriggerInteraction.Ignore)) {
             pivot.GetComponent<Camera>().nearClipPlane = Vector3.Distance(pivot.transform.position, hitInfo.point) + 0.5f;
         }
         walker.forwardGoal = Input.GetAxis("Vertical");

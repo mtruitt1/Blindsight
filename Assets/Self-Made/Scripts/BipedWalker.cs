@@ -58,6 +58,7 @@ public class BipedWalker : SoundReceiver {
             step.transform.localScale = f.localScale;
             step.transform.parent = null;
             step.owner = this;
+            step.suppressable = suppressable;
             FixedJoint joint = step.gameObject.AddComponent<FixedJoint>();
             joint.connectedBody = f.footRB;
             strikers.Add(step);

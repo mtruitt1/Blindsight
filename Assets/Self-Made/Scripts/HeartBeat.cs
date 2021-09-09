@@ -20,7 +20,7 @@ public class HeartBeat : SoundObject {
             if (sounds.Count > 0) {
                 AudioSource.PlayClipAtPoint(sounds[Random.Range(0, sounds.Count)], transform.position, strength * volMult);
             }
-            SoundWave wave = Instantiate(GameManager.local.soundSphere).Emit(strength, true, this);
+            SoundWave wave = Instantiate(GameManager.local.soundSphere).Emit(strength, true, this, suppressable);
             wave.followOrigin = followOrigin;
             bps = 1f / (heartRate / 60f);
         }
