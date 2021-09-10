@@ -108,6 +108,8 @@ MonoBehaviour:
   ignoreReg: 1
   strengthMinRaw: 0
   strengthMinPercent: 0.6
+  soundReactCooldown: 0.5
+  manualOnly: 0
   bouncables: []
   strength: 0
   activationDistance: 2

@@ -719,6 +719,7 @@ MonoBehaviour:
   ignoreReg: 1
   strengthMinRaw: 0
   strengthMinPercent: 0
+  soundReactCooldown: 0.1
   moveBall: {fileID: 4219585759513910030}
   root: {fileID: 4219585758666743748}
   left:
@@ -2254,7 +2255,7 @@ MonoBehaviour:
   volMult: 2
   sounds:
   - {fileID: 8300000, guid: fff1709ab8342e647a72d8fd879c6df4, type: 3}
-  suppressable: 1
+  suppressable: 0
   owner: {fileID: 4219585758667180989}
   strengthMult: 1
   minColMag: 1

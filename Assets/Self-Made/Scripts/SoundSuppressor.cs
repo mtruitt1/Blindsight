@@ -20,7 +20,7 @@ public class SoundSuppressor : SoundBouncer {
         }
     }
 
-    protected override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
+    public override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
         if (bouncables.Count > 0 && suppress) {
             suppress = false;
             PlayRandSound(strength, false, false);

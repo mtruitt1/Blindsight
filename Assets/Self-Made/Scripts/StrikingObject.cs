@@ -10,6 +10,7 @@ public class StrikingObject : SoundObject {
     public float freezeTimer = -1f;
     private float freezeClock;
     private Rigidbody rb;
+    public bool pauseForFrame = false;
 
     protected override void Start() {
         base.Start();
@@ -18,6 +19,10 @@ public class StrikingObject : SoundObject {
     }
 
     private void OnCollisionEnter(Collision collision) {
+        if (pauseForFrame) {
+            pauseForFrame = false;
+            return;
+        }
         float strength = Mathf.Clamp(collision.relativeVelocity.magnitude, minColMag, maxColMag) * strengthMult;
         PlayRandSound(strength, true, false);
         //Debug.Log("Sound made, strength: " + strength + " @ " + transform.position.ToString());

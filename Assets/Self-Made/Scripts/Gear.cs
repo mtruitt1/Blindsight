@@ -5,18 +5,17 @@ using UnityEngine;
 //the gear. behaves mainly as a soundbouncer, but also spins
 public class Gear : SoundBouncer {
     public float turnSpeed = 5f;
-    private bool turn = false;
     public RotateAxis turnAxis = RotateAxis.Forward;
 
     //bounce sound when hit
-    protected override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
+    public override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
         base.DoBounceBehavior(wave, highest, maker);
-        turn = !turn;
+        toggleable = !toggleable;
     }
 
     //spin if meant to spin
     private void Update() {
-        if (turn) {
+        if (toggleable) {
             transform.RotateAround(transform.position, AxisToV3(turnAxis), turnSpeed * Time.deltaTime);
         }
     }

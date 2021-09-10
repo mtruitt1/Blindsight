@@ -116,7 +116,7 @@ public class EnemyBiped : BipedWalker {
         if (lastHeard != null) {
             patrolTimer = 0f;
             forgetTimer -= Time.deltaTime;
-            if (forgetTimer <= 0f) {
+            if (forgetTimer <= 0f && predefinedPath.spotCount > 1) {
                 lastHeard = null;
                 forgetTimer = forgetTime;
             }
@@ -135,7 +135,7 @@ public class EnemyBiped : BipedWalker {
             sprint = distance + SumRemainingPath() >= sprintDistance;
             if (distance <= distanceTolerance) {
                 forwardGoal = 0f;
-                Debug.Log("Within tolerance to goal " + goals[0]);
+                //Debug.Log("Within tolerance to goal " + goals[0]);
                 goals.RemoveAt(0);
             } else {
                 Vector3 flatHere = transform.position;
@@ -146,18 +146,22 @@ public class EnemyBiped : BipedWalker {
                 forwardGoal = 1f;
             }
         } else {
-            //Debug.Log("Waiting at patrol point...");
+            //Debug.Log("Waiting for next move...");
             forwardGoal = 0f;
             angleToTurn = 0f;
-            patrolTimer -= Time.deltaTime;
-            if (patrolTimer <= 0f) {
-                Debug.Log("Selecting new patrol point");
-                int random = Random.Range(0, predefinedPath.spotCount - 1);
-                PatrolPath.PatrolSpot spot = predefinedPath[random];
-                predefinedPath.MoveToBack(random);
-                DeterminePathToPoint(spot.area.transform.position);
-                patrolTimer = spot.timeToStay;
-                Debug.Log("Headed to " + spot.area.transform.position);
+            if (predefinedPath.spotCount > 1) {
+                patrolTimer -= Time.deltaTime;
+                if (patrolTimer <= 0f) {
+                    //Debug.Log("Selecting new patrol point");
+                    int random = Random.Range(0, predefinedPath.spotCount - 1);
+                    PatrolPath.PatrolSpot spot = predefinedPath[random];
+                    predefinedPath.MoveToBack(random);
+                    DeterminePathToPoint(spot.area.transform.position);
+                    patrolTimer = spot.timeToStay;
+                    //Debug.Log("Headed to " + spot.area.transform.position);
+                }
+            } else if (predefinedPath.spotCount == 1) {
+                //handle single patrol point
             }
         }
     }

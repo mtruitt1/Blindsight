@@ -414,13 +414,15 @@ MonoBehaviour:
   volMult: 2
   sounds:
   - {fileID: 8300000, guid: fc11ee2874493534fbfa28075d2341ed, type: 3}
-  owner: {fileID: 0}
+  suppressable: 0
+  owner: {fileID: 4457101552753451711}
   ignoreReg: 0
   strengthMinRaw: 0
   strengthMinPercent: 0
-  onlyFrom: {fileID: 0}
+  bouncables: []
   strength: 5
   moveTime: 2
+  moveConstantly: 0
   endPos: {x: 0.813, y: 0.047, z: 0}
   endEulers: {x: 0, y: -90, z: 0}
   endScale: {x: 1, y: 1, z: 1}

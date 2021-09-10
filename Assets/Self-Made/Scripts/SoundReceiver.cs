@@ -8,7 +8,9 @@ public class SoundReceiver : SoundObject {
     public bool ignoreReg = true;
     public float strengthMinRaw = 0f;
     public float strengthMinPercent = 0f;
+    public float soundReactCooldown = 0.1f;
     protected HeardSound lastHeard = null;
+    protected float lastHeardTime = 0f;
 
     //gets run by the soundwave, does any preliminary checking the soundreceiver should do before passing the information along to the next function in the queue for the object or inherited object
     public void SoundTouched(SoundWave wave) {

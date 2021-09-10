@@ -14,7 +14,7 @@ public class UnstableObject : SoundBouncer {
         rb.isKinematic = true;
     }
 
-    protected override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
+    public override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
         base.DoBounceBehavior(wave, highest, maker);
         PlayRandSound(strength, false, false);
         stabilityTimer = stabilityTime;

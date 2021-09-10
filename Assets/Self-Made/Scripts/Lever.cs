@@ -28,7 +28,7 @@ public class Lever : SoundBouncer {
     }
 
     //react to a sound and bounce it if not flipped
-    protected override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
+    public override void DoBounceBehavior(SoundWave wave, SoundObject highest, SoundObject maker) {
         if (!flip && !inRange) {
             PlayRandSound(bounceStrength, false, true);
         }
