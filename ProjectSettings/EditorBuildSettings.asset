@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Self-Made/Scenes/MultipartLevel.unity
     guid: cb74aa7806f2157429b2afd2e24ffcee
+  - enabled: 1
+    path: Assets/Self-Made/Scenes/Suppression.unity
+    guid: b12b3c144d2957947b253190d68dd5ac
   m_configObjects: {}
